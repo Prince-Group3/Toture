@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabs with Logo</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+  /* Buttons styling */
+.scroll-btn {
+  position: fixed;
+  right: 20px;
+  padding: 12px;
+  background: #ff7f00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1000;
+}
+
+.scroll-up { bottom: 70px; }
+.scroll-down { bottom: 20px; }
+
+.scroll-btn:hover {
+  background: #ff9f2a;
+}
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+       font-family: Arial, sans-serif;
+      margin: 0;
+      background-image: linear-gradient(to top, rgb(255, 240, 172),rgb(209, 185, 97));
+      margin: 0;
+      height: 100vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      background: #e2c380;
+      color: white;
+      padding: 10px 10px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background-color: #bfa971;
+      border-radius: 5px;
+      padding-right: 10px;
+    }
+
+    .logo {
+      color: #000000;
+      font-weight: bold;
+      padding: 5px;
+      border-radius: 8px;
+      height: 40px; 
+    }
+
+    .tabs-area {
+      margin-left: 30px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      background-color: rgb(255, 209, 117);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      border-radius: 8px;
+    }
+
+    .tab-btn:hover {
+      background: rgb(170, 142, 81);
+      transition: 0.4s ease-out;
+      color: #000000;
+    }
+
+    .tab-btn.active {
+      border-bottom: 3px solid #00000000;
+      transition: 0.2s ease-out;
+      border-bottom: 3px solid #936e3c;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background-image: linear-gradient(to top, rgb(255, 255, 255), rgb(255, 216, 110));
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    img{
+        width: 50px;
+        position: relative;
+    }
+
+    .title{
+        font-family: "My Custom Font", cursive, 'Courier New', Courier, monospace;
+    }
+
+    	/* Setting container to flex and
+		   width to 80% of view port */
+	  .container1 {
+		    display: flex;
+		    width: 80%;
+        margin-left: 150px;
+	  }
+	    /*Adding background image to each section*/
+	  .one {
+		    background-image:url(HELOOO.png);
+	  }
+	 .two {
+		    background: url(aaaaaaaaaaaaaaaaaaaaaaaaaaaaa\ \(1\).png);
+	  }
+	  .three {
+		    background: url(luh.png);
+	  }
+	  .four {
+		    background: url(YESSS\ LAST\ ONE!!.png);
+	  }
+		
+	   /* Background properties and
+		transition effect to section */
+	  .section {
+		    background-size: cover;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    height: 40vh;
+		    cursor: pointer;
+		    flex: 0.2;
+		    margin: 8px;
+		    position: relative;
+		    transition: all 0.9s ease-out;
+        border-radius: 5px;
+	  }
+
+	    /* section with active class will
+		    grow flex to 3 times */
+	  .section.active {
+		    flex: 3;
+	  }
+
+
+     /*BACKGROUNDDDDD*/
+      #bread-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .bread {
+    position: absolute;
+    font-size: 20px;
+    filter: blur(0.8px);
+    opacity: 0.85;
+    transform: translateX(0);
+    transition: transform 0.2s ease-out;
+  }
+
+
+  /*COLLAPSEEEE*/
+  .collapsible {
+  background-color: #d1ba75;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.collapsible:active, .collapsible:hover {
+  background-color: #74521b;
+  border-radius: 5px;
+  transition: 0.2s ease-in;
+  color: #000000;
+}
+
+.content1 {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #b39a60;
+  border-radius: 5px;
+}
+
+/*SLIDESSSSSS*/
+/* --- Scoped Slideshow Styles --- */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: 30px auto;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.slideshow-container img {
+  width: 100%;
+  display: block;
+}
+
+/* Hide all slides by default */
+.slide {
+  display: none;
+}
+
+/* Next & previous buttons */
+.slideshow-prev, .slideshow-next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.5);
+  transform: translateY(-50%);
+}
+
+.slideshow-next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.slideshow-prev:hover, .slideshow-next:hover {
+  background-color: rgba(255,255,255,0.8);
+  color: black;
+}
+
+/* Title for each slideshow */
+.slideshow-title {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+  </style>
+</head>
+<body>
+  <button class="scroll-btn scroll-up" onclick="scrollUp()">↑ Scroll Up</button>
+<button class="scroll-btn scroll-down" onclick="scrollDown()">↓ Scroll Down</button>
+  <div id="bread-background"></div>
+  <header class="header">
+    <div class="logo-wrap">
+      <div class="logo">
+        <img src="download__1_-removebg-preview.png" alt="Logo">
+      </div>
+      <div class="brand">
+        <div class="title" style="color: black;">Kapey's Sweets and Sips</div>
+        <div class="subtitle" style="font-size:12px;color:#808080;font-style: italic;">Good products, Good price, and made with a Good heart.</div>
+      </div>
+    </div>
+
+    <div class="tabs-area">
+      <nav class="tabs">
+        <button class="tab-btn active" data-target="tab1">Home</button>
+        <button class="tab-btn" data-target="tab2">Menus</button>
+        <button class="tab-btn" data-target="tab3">About us</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div id="tab1" class="tab-content active">
+        <h2 style="text-align: center; margin-top: 5px;">WELCOME!</h2>
+        	<div class="container1">
+		
+	      <!-- Div with section and active -->
+	      <div class="section one active"></div>
+		
+	      <!-- All another div with section -->
+	      <div class="section two"></div>
+	      <div class="section three"></div>
+	      <div class="section four"></div>
+	      </div>
+
+      </div>
+
+      <div id="tab2" class="tab-content">
+        <h2 style="text-align: center;">Menus</h2>
+        <p>Menu for our bakery!</p>
+        <!-- Slideshow 1 -->
+<h3 class="slideshow-title">Cookies & Pastries!</h3>
+<div class="slideshow-container" style="width: 30%;">
+  <div class="slide"><img src="download (11).jpg" alt="Cookies"></div>
+  <div class="slide"><img src="download (12).jpg" alt="Cookie"></div>
+  <div class="slide"><img src="download (13).jpg" alt="Cookie"></div>
+  <a class="slideshow-prev">&#10094;</a>
+  <a class="slideshow-next">&#10095;</a>
+</div>
+
+<!-- Slideshow 2 -->
+<h3 class="slideshow-title">Bread</h3>
+<div class="slideshow-container" style="width: 30%;">
+  <div class="slide"><img src="download (14).jpg" alt="Bread"></div>
+  <div class="slide"><img src="download (15).jpg" alt="Bread"></div>
+  <div class="slide"><img src="download (16).jpg" alt="Bread"></div>
+  <a class="slideshow-prev">&#10094;</a>
+  <a class="slideshow-next">&#10095;</a>
+</div>
+
+<!-- Slideshow 3 -->
+<h3 class="slideshow-title">Drink/Beverages</h3>
+<div class="slideshow-container" style="width: 30%;">
+  <div class="slide"><img src="download (17).jpg" alt="Drink/Beverages"></div>
+  <div class="slide"><img src="download (18).jpg" alt="Drink/Beverages"></div>
+  <div class="slide"><img src="download (19).jpg" alt="Drink/Beverages"></div>
+  <a class="slideshow-prev">&#10094;</a>
+  <a class="slideshow-next">&#10095;</a>
+</div>
+<p style="text-align: center;">More information about our 
+  <a href="https://docs.google.com/document/d/1GFIroaLQXWcIdieRHsGauLRaOrczaY5BVbFaVptJuPg/edit?tab=t.0">Menu!</a>
+</p>
+      </div>
+
+      <div id="tab3" class="tab-content">
+        <h2 style="text-align: center;">About us!</h2>
+        <button type="button" class="collapsible">Group 3</button>
+          <div class="content1">
+             <p>We are Group 3 and we made this website to represent our Bakery!</p>
+          </div>
+        <button type="button" class="collapsible">Website usage</button>
+          <div class="content1">
+             <p>We made this website for our IPBA in LifeLabs!</p>
+          </div>
+        <button type="button" class="collapsible">Youtube Channel</button>
+          <div class="content1">
+             <p>This is also our
+              <a href="https://youtube.com/@kapeyssweetssip?si=ezQ1DwcbLNm9JQ9O">
+                Youtube Channel!
+              </a>
+             </p>
+          </div>
+      </div>
+    </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab-btn");
+    const contents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        // Remove 'active' from all
+        tabs.forEach(t => t.classList.remove("active"));
+        contents.forEach(c => c.classList.remove("active"));
+
+        // Add 'active' to clicked tab and its content
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.target).classList.add("active");
+      });
+    });
+
+    // selecting all sections with class of section
+	const sections = document.querySelectorAll(".section");
+
+	// Foreach section when clicked
+	sections.forEach((section) => {
+		section.addEventListener("click", () => {
+			
+		// remove active class from all another section and
+		// add it to the selected section
+		sections.forEach((section) => {
+			section.classList.remove("active");
+		});
+		section.classList.add("active");
+		});
+	});
+
+//hereeeeeee
+ const breadCount = 60;
+  const breadContainer = document.getElementById('bread-background');
+  const breadEmojis = ['🍞', '🥖', '🥐', '🥯']; // variety!
+
+  function createBread() {
+    const bread = document.createElement('div');
+    bread.className = 'bread';
+    bread.textContent = breadEmojis[Math.floor(Math.random() * breadEmojis.length)];
+    resetBread(bread);
+    breadContainer.appendChild(bread);
+    return bread;
+  }
+
+  function resetBread(bread) {
+    bread.style.left = Math.random() * 100 + 'vw';
+    bread.style.top = -30 + 'px';
+    bread.style.fontSize = 20 + Math.random() * 30 + 'px';
+    bread.dataset.speed = 1 + Math.random() * 2.5; // vertical speed
+    bread.dataset.drift = (Math.random() - 0.5) * 0.5; // horizontal drift
+    bread.dataset.phase = Math.random() * Math.PI * 2; // random start phase
+  }
+
+  const breads = Array.from({ length: breadCount }, createBread);
+
+  function animateBread() {
+    breads.forEach(bread => {
+      let top = parseFloat(bread.style.top);
+      let left = parseFloat(bread.style.left);
+      let speed = parseFloat(bread.dataset.speed);
+      let drift = parseFloat(bread.dataset.drift);
+      let phase = parseFloat(bread.dataset.phase);
+
+      // vertical movement
+      top += speed;
+      bread.style.top = top + 'px';
+
+      // side-to-side drifting motion
+      const sway = Math.sin(Date.now() / 500 + phase) * 20 * drift;
+      bread.style.transform = `translateX(${sway}px)`;
+
+      // reset if out of screen
+      if (top > window.innerHeight + 50) {
+        resetBread(bread);
+      }
+    });
+
+    requestAnimationFrame(animateBread);
+  }
+
+  animateBread();
+
+  //COLLAPSEEE
+  var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+//SLIDESSSSS
+// --- Independent Slideshow Script ---
+document.querySelectorAll('.slideshow-container').forEach((container) => {
+  const slides = container.querySelectorAll('.slide');
+  const prevBtn = container.querySelector('.slideshow-prev');
+  const nextBtn = container.querySelector('.slideshow-next');
+  let index = 0;
+
+  function showSlide(n) {
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[n].style.display = 'block';
+  }
+
+  function changeSlide(step) {
+    index = (index + step + slides.length) % slides.length;
+    showSlide(index);
+  }
+
+  prevBtn.addEventListener('click', () => changeSlide(-1));
+  nextBtn.addEventListener('click', () => changeSlide(1));
+
+  // Initialize slideshow
+  showSlide(index);
+});
+
+//SCROLLLL
+// Scroll down by one screen height
+function scrollDown() {
+  window.scrollBy({ top: 300, behavior: 'smooth' });
+}
+
+// Scroll up by one screen height
+function scrollUp() {
+  window.scrollBy({ top: -300, behavior: 'smooth' });
+}
+  </script>
+</body>
+</html>
